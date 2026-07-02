@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 5.6.9 (2026-07-02)
+
+
+### Bug Fixes
+
+* number input spinner position adjustment ([#4593](https://github.com/saadeghi/daisyui/issues/4593)) closes: [#4590](https://github.com/saadeghi/daisyui/issues/4590) ([1ae1ea4](https://github.com/saadeghi/daisyui/commit/1ae1ea4a57556e241b96445fd63fa139fc484d5b))
+
 ## 5.6.8 (2026-07-02)
 
 
