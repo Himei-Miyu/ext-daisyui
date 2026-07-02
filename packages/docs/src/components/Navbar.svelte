@@ -29,6 +29,7 @@
     showSearch = false,
     showVersion = false,
     showLanguage = false,
+    stargazersCount = null,
     version,
     scrollY = $bindable(),
     onOpenSearch,
@@ -91,6 +92,12 @@
   const activeDiscountExpiresAt = $derived(activeDiscount?.data?.attributes?.expires_at)
   const shouldShowCountdownTooltip = (item) =>
     item.countdown && activeDiscountExpiresAt && !$page.url.pathname.startsWith("/store/")
+  const githubStarsLabel = $derived.by(() => {
+    if (!Number.isFinite(stargazersCount)) return null
+
+    const thousands = Math.floor(stargazersCount / 1000)
+    return thousands > 0 ? `${thousands}k` : String(stargazersCount)
+  })
 </script>
 
 <svelte:window bind:scrollY />
@@ -166,7 +173,7 @@
             >
               <span class="px-1 xl:px-2 flex items-center gap-1">
                 {#if item.icon}
-                  <span>{@html item.icon}</span>
+                  <span class="max-lg:hidden">{@html item.icon}</span>
                 {/if}
                 {$t(item.name)}
                 <svg
@@ -238,7 +245,7 @@
                 class={`px-1 xl:px-2 flex items-center gap-1 ${shouldShowCountdownTooltip(item) ? "tooltip tooltip-bottom tooltip-open group" : ""}`}
               >
                 {#if item.icon}
-                  <span class="text-base-content group-hover:opacity-100 opacity-50"
+                  <span class="max-xl:hidden text-base-content group-hover:opacity-100 opacity-50"
                     >{@html item.icon}</span
                   >
                 {/if}
@@ -305,7 +312,7 @@
         title="GitHub"
         rel="noopener noreferrer"
         target="_blank"
-        class="btn btn-ghost btn-sm btn-square"
+        class={`btn btn-ghost group btn-sm ${githubStarsLabel ? "gap-1 px-2" : "btn-square"}`}
         onclick={() => track("Navbar > GitHub")}
       >
         <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -322,6 +329,9 @@
             </path>
           </g>
         </svg>
+        {#if githubStarsLabel}
+          <span class="text-[0.625rem] font-normal font-mono tabular-nums">{githubStarsLabel}</span>
+        {/if}
       </a>
     </div>
   </nav>

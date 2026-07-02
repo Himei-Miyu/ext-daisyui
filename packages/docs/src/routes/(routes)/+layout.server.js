@@ -1,5 +1,6 @@
 import themes from "daisyui/functions/themeOrder"
 import { load as loadYaml } from "js-yaml"
+import { PUBLIC_DAISYUI_API_PATH } from "$env/static/public"
 import navigationYaml from "$lib/data/navigation.yaml?raw"
 import { getBlogSidebarPages } from "$lib/data/blogTags.js"
 
@@ -10,8 +11,28 @@ const navbar = navigation.navbar ?? []
 const sidebar = navigation.sidebar ?? {}
 const pagesThatDontNeedSidebar = sidebar.noSidebar ?? []
 
+const getStargazersCount = async () => {
+  try {
+    const response = await fetch(`${PUBLIC_DAISYUI_API_PATH}/stats.json`)
+
+    if (!response.ok) {
+      return null
+    }
+
+    const stats = await response.json()
+    const stargazersCount = Number(stats?.stargazers_count)
+
+    return Number.isFinite(stargazersCount) ? stargazersCount : null
+  } catch {
+    return null
+  }
+}
+
 export async function load() {
-  const blogSidebarPages = await getBlogSidebarPages()
+  const [blogSidebarPages, stargazersCount] = await Promise.all([
+    getBlogSidebarPages(),
+    getStargazersCount(),
+  ])
   const sidebarWithDynamicPages = {
     ...sidebar,
     blog: blogSidebarPages,
@@ -28,5 +49,6 @@ export async function load() {
     sidebarPages,
     themes,
     daisyuiVersion: version,
+    stargazersCount,
   }
 }

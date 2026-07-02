@@ -6,8 +6,7 @@
   popovertarget="changelog"
   style="anchor-name:--changelog"
   dir="ltr"
-  role="button"
-  class="link link-hover text-base-content/60 relative -top-1 inline-block font-mono text-[0.625rem] whitespace-nowrap"
+  class="link link-hover text-base-content/60 relative inline-block font-mono text-[0.625rem] whitespace-nowrap"
 >
   {version.version}
   <svg

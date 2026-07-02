@@ -222,7 +222,7 @@
                 </button>
               </div>
               <a
-                href="/docs/skill"
+                href="/docs/skill/"
                 class="btn btn-xs btn-circle relative -start-0.5 opacity-0 transition-all duration-600 group-hover:start-0 group-hover:opacity-100"
                 aria-label="Learn about daisyUI Skill.md file"
               >

@@ -142,6 +142,7 @@
   showSearch="true"
   showVersion="true"
   showLanguage="true"
+  stargazersCount={data.stargazersCount}
   onOpenSearch={handleOpenSearch}
   onPreFetchSearch={handlePreFetchSearch}
 />
