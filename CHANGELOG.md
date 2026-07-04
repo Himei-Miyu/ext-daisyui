@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 5.6.11 (2026-07-04)
+
+
+### Bug Fixes
+
+* active button inset ([3565674](https://github.com/saadeghi/daisyui/commit/35656742d05b8cc98d79a2acc9c3bc49fc9c0724))
+
 ## 5.6.10 (2026-07-02)
 
 
