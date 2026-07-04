@@ -91,7 +91,7 @@
   "daisyUI Name": "daisyUI 이름",
   "daisyUI name must be written as \"daisyUI\" with a lowercase \"d\" and uppercase \"UI\" with no spaces.": "데이지UI 이름은 공백 없이 소문자 \"d\", 대문자 \"UI\"를 사용하여 \"daisyUI\"로 작성해야 합니다.",
   "daisyUI Pro Components": "daisyUI 프로 Components",
-  "daisyUI Store": "DaisyUI Store광고",
+  "daisyUI Store": "daisyUI Store광고",
   "daisyUI supports the <a href=\"https://github.com/tailwindlabs/tailwindcss-typography\" rel=\"nofollow\" target=\"_blank\">TailwindCSS Typography plugin</a>": "daisyUI는 <a href=\"https://github.com/tailwindlabs/tailwindcss-typography\" rel=\"nofollow\" target=\"_blank\">TailwindCSS Typography 플러그인</a>을 지원합니다.",
   "Do not use the daisyUI name or logo in a way that suggests your product or service is officially affiliated with, endorsed by, or produced by daisyUI.": "귀하의 제품이나 서비스가 daisyUI와 공식적으로 제휴, 승인 또는 생산되었음을 암시하는 방식으로 daisyUI 이름이나 로고를 사용하지 마십시오.",
   "Enable a theme using <a href=\"https://daisyui.com/docs/themes/#enable-a-built-in-theme\" rel=\"nofollow\" target=\"_blank\"><code>data-theme</code></a> on your `<html>` tag:": "`<html>` 태그에서 <a href=\"https://daisyui.com/docs/themes/#enable-a-built-in-theme\" rel=\"nofollow\" target=\"_blank\"><code>data-theme</code></a>을 사용하여 테마를 활성화하세요.",

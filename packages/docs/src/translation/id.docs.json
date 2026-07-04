@@ -1235,7 +1235,7 @@
   "layout: docs\nseo: false": "layout: docs\nseo: false",
   "For a more efficient daisyUI generation and on-demand component snippets, use <a href=\"/blueprint/\">daisyUI Blueprint MCP server</a>. Blueprint MCP saves more tokens and has more control over the generated code.": "Untuk pembuatan daisyUI yang lebih efisien dan cuplikan Component sesuai permintaan, gunakan <a href=\"/blueprint/\">server daisyUI Blueprint MCP</a>. Blueprint MCP menyimpan lebih banyak token dan memiliki kontrol lebih besar atas kode yang dihasilkan.",
   "title: Add daisyUI agent plugin\ndesc: Install the daisyUI plugin for Codex, Cursor, or Claude Code so your agent can use the latest daisyUI skill.": "title: Add daisyUI agent plugin\ndesc: Install the daisyUI plugin for Codex, Cursor, or Claude Code so your agent can use the latest daisyUI skill.",
-  "If you already use <a href=\"/blueprint/\">daisyUI Blueprint MCP server</a>, you don't need to install this plugin.": "Jika Anda sudah menggunakan <a href=\"/blueprint/\">server MCP Blueprint DaisyUI</a>, Anda tidak perlu menginstal plugin ini.",
+  "If you already use <a href=\"/blueprint/\">daisyUI Blueprint MCP server</a>, you don't need to install this plugin.": "Jika Anda sudah menggunakan <a href=\"/blueprint/\">server MCP Blueprint daisyUI</a>, Anda tidak perlu menginstal plugin ini.",
   "Open Cursor settings with ": "Open Cursor settings with ",
   "⌘": "⌘",
   " + ": " + ",

@@ -43,6 +43,7 @@
 
 ### Translation rules
 
+- "daisyUI" must be written exactly as "daisyUI", with the first letter lowercase "d", and the "UI" part uppercase.
 - Do not translate if there's a comment saying don't translate a specific section
 - Do not translate technical terms of programming, development, web design or design systems
 - Do not translate daisyUI component names or class names
