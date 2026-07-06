@@ -396,20 +396,33 @@ export const syncMissingTranslations = ({ write = false } = {}) => {
   return changes
 }
 
+const getTranslationPathForFileId = (fileId) => {
+  const chunkSeparatorIndex = fileId.lastIndexOf(".")
+  const lang = fileId.slice(0, chunkSeparatorIndex)
+  const chunk = fileId.slice(chunkSeparatorIndex + 1)
+
+  return repoRelativePath(getTranslationFilePath(lang, chunk))
+}
+
 const collectTranslationKeys = (translationsByFile) => {
   const keysByChunk = Object.fromEntries(chunkNames.map((chunk) => [chunk, new Set()]))
   const allKeys = new Set()
+  const filesByKey = new Map()
+  const chunksByKey = new Map()
 
   for (const [fileId, translations] of translationsByFile) {
-    const [, chunk] = fileId.split(".")
+    const chunk = fileId.slice(fileId.lastIndexOf(".") + 1)
     if (!chunkNames.includes(chunk)) continue
+    const filePath = getTranslationPathForFileId(fileId)
     for (const key of Object.keys(translations)) {
       keysByChunk[chunk].add(key)
       allKeys.add(key)
+      filesByKey.set(key, [...(filesByKey.get(key) || []), filePath])
+      chunksByKey.set(key, [...new Set([...(chunksByKey.get(key) || []), chunk])])
     }
   }
 
-  return { keysByChunk, allKeys }
+  return { keysByChunk, allKeys, filesByKey, chunksByKey }
 }
 
 const extractPlaceholders = (text) =>
@@ -420,7 +433,7 @@ export const validateTranslations = () => {
   const translationsByFile = readAllTranslations()
   const sourceTranslations = extractSourceTranslations()
   const expectedKeysByChunk = getExpectedKeysByChunk(sourceTranslations)
-  const { allKeys } = collectTranslationKeys(translationsByFile)
+  const { allKeys, filesByKey, chunksByKey } = collectTranslationKeys(translationsByFile)
   const englishCommon = translationsByFile.get(`${defaultLang}.common`) || {}
 
   for (const chunk of chunkNames) {
@@ -433,6 +446,7 @@ export const validateTranslations = () => {
       if (!englishKeySet.has(key)) {
         issues.push({
           type: "missing-source-key",
+          file: repoRelativePath(getTranslationFilePath(defaultLang, chunk)),
           message: `${key} is used in ${chunk} source files but missing from en.${chunk}.json`,
         })
       }
@@ -443,6 +457,7 @@ export const validateTranslations = () => {
       if (!translations) {
         issues.push({
           type: "missing-file",
+          file: repoRelativePath(getTranslationFilePath(lang, chunk)),
           message: `${lang}.${chunk}.json is missing`,
         })
         continue
@@ -456,6 +471,7 @@ export const validateTranslations = () => {
       for (const key of missing) {
         issues.push({
           type: "missing-translation-key",
+          file: repoRelativePath(getTranslationFilePath(lang, chunk)),
           message: `${lang}.${chunk}.json is missing key: ${key}`,
         })
       }
@@ -463,6 +479,7 @@ export const validateTranslations = () => {
       for (const key of extra) {
         issues.push({
           type: "extra-translation-key",
+          file: repoRelativePath(getTranslationFilePath(lang, chunk)),
           message: `${lang}.${chunk}.json has extra key: ${key}`,
         })
       }
@@ -473,6 +490,7 @@ export const validateTranslations = () => {
         if (englishPlaceholders.join("\0") !== translatedPlaceholders.join("\0")) {
           issues.push({
             type: "placeholder-mismatch",
+            file: repoRelativePath(getTranslationFilePath(lang, chunk)),
             message: `${lang}.${chunk}.json placeholder mismatch for key: ${key}`,
           })
         }
@@ -485,20 +503,25 @@ export const validateTranslations = () => {
     for (const key of keys) allowedKeys.add(key)
   }
 
-  const excludedKeys = new Set()
+  const excludedSourcesByKey = new Map()
   for (const filePath of getSourceFiles().filter((filePath) =>
     isExcludedFile(repoRelativePath(filePath)),
   )) {
+    const relativePath = repoRelativePath(filePath)
     for (const key of extractTranslationsFromFile(filePath, { honorSkipRules: false })) {
-      excludedKeys.add(key)
+      excludedSourcesByKey.set(key, [...(excludedSourcesByKey.get(key) || []), relativePath])
     }
   }
 
-  for (const key of excludedKeys) {
+  for (const [key, sources] of excludedSourcesByKey) {
     if (allKeys.has(key) && !allowedKeys.has(key)) {
       issues.push({
         type: "excluded-route-key",
-        message: `${key} exists in translations but is only extracted from excluded routes`,
+        key,
+        chunks: chunksByKey.get(key) || [],
+        files: filesByKey.get(key) || [],
+        sources,
+        message: `Translation key exists but is only extracted from excluded routes. Remove this key from translation files or use it in a non-excluded source file.`,
       })
     }
   }
