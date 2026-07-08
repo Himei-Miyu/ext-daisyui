@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [5.6.16](https://github.com/saadeghi/daisyui/compare/v5.6.15...v5.6.16) (2026-07-08)
+
+
+### Bug Fixes
+
+* btn-active layers ([c2b19c4](https://github.com/saadeghi/daisyui/commit/c2b19c43054ef42f9d4bcdbcdaf0554d100a0597))
+
 ## [5.6.15](https://github.com/saadeghi/daisyui/compare/v5.6.14...v5.6.15) (2026-07-08)
 
 
